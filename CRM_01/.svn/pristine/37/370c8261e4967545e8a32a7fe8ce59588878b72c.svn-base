@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+
+<struts>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	
+	<package name="base" namespace="/" extends="json-default">
+	
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.itheima.crm.web.interceptor.LoginInterceptor">
+				<param name="excludeMethods">login</param>
+			</interceptor>
+			<interceptor-stack name="crmInterceptor">
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+	
+		<default-interceptor-ref name="crmInterceptor"></default-interceptor-ref>
+		
+		<global-results >
+			<result name="Login_page" type="redirect">/login.jsp</result>
+		</global-results>
+	</package>
+	
+	
+
+	<package name="userLogin" namespace="/" extends="base">
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="login_suc">/index.jsp</result>
+			<result name="login_error">/login.jsp</result>
+			<result name="regist_suc">/jsp/success.jsp</result>
+		</action>
+	</package>
+	
+	<package name="customer" namespace="/" extends="base">
+		<action name="customer_*" class="customertAction" method="{1}">
+			<result name="list">/jsp/customer/list.jsp</result>
+			<result name="find_suc">/jsp/customer/edit.jsp</result>
+			<result name="edit_suc">/jsp/success.jsp</result>
+			<result name="remove_suc">/jsp/success.jsp</result>
+			<result name="findAllCustomer" type="json">
+				<param name="root">listCounstmer</param>
+			</result>
+			
+		</action>
+		
+		<!-- <action name="customer" class="customertAction" method="findAllCustomer">
+			<result name="findAllCustomer" type="json">
+				<param name="root">listCounstmer</param>
+			</result>
+		</action> -->
+		
+		<action name="customer_save" class="customertAction" method="save">
+			<result name="save_suc" type="redirectAction">/customer_findAll
+			</result>
+			<result name="input_error">/jsp/customer/add.jsp</result>
+			
+		</action>
+		
+	</package>
+	<package name="baseDict" namespace="/" extends="base">
+		<action name="baseDict_*" class="baseDictAction" method="{1}">
+			<result name="json_success" type="json">
+				<param name="root">list</param>
+			</result>
+		</action>
+		
+	</package>
+	<package name="linkMan" namespace="/" extends="base">
+		<action name="linkMan_*" class="linkManAction" method="{1}">
+		
+			<result name="find_suc">/jsp/linkman/add.jsp</result>
+			<result name="save_suc" type="redirectAction">/linkMan_findByPage
+			</result>
+			<result name="linkMans">/jsp/linkman/list.jsp</result>
+			<result name="remove_suc">/jsp/success.jsp</result>
+			<result name="edit_UI">/jsp/linkman/edit.jsp</result>
+			<result name="edit_save">/jsp/success.jsp</result>
+			<result name="findByID_suc" type="json">
+				<param name="root">linkMans</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="saleVisi" namespace="/" extends="base">
+		<action name="saleVisitAction_*" class="saleVisitAction" method="{1}">
+			<result name="saveVisitRecod_suc" type="redirectAction">/saleVisitAction_findByPage
+			</result>
+			<result name="findVisitRecod_suc">/jsp/visit/list.jsp</result>
+		</action>
+		
+	</package>
+	
+	
+</struts>

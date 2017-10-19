@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+
+<struts>
+	<constant name="struts.ui.theme" value="simple"></constant>
+
+	<package name="userLogin" namespace="/" extends="struts-default">
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="login_suc">/index.jsp</result>
+			<result name="login_error">/login.jsp</result>
+			<result name="regist_suc">/jsp/success.jsp</result>
+		</action>
+	</package>
+	
+	<package name="customer" namespace="/" extends="struts-default">
+		<action name="customer_*" class="customertAction" method="{1}">
+			<result name="list">/jsp/customer/list.jsp</result>
+			<result name="find_suc">/jsp/customer/edit.jsp</result>
+			<result name="edit_suc">/jsp/success.jsp</result>
+			<result name="remove_suc">/jsp/success.jsp</result>
+		</action>
+		
+		<action name="customer_save" class="customertAction" method="save">
+			<result name="save_suc">/jsp/success.jsp</result>
+			<result name="input_error">/jsp/customer/add.jsp</result>
+			
+		</action>
+		
+	</package>
+	<package name="baseDict" namespace="/" extends="json-default">
+		<action name="baseDict_*" class="baseDictAction" method="{1}">
+			<result name="json_success" type="json">
+				<param name="root">list</param>
+			</result>
+		</action>
+		
+	</package>
+	
+	
+</struts>

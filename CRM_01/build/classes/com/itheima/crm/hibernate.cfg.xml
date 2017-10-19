@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+	
+<hibernate-configuration>
+
+	<session-factory>
+		<!-- 1. 配置数据库连接参数 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/crm_db</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">123</property>
+		
+	
+		<!-- 2. 配置hiberante的特性   方言：指定底层使用的数据库是那个-->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+	
+		<!-- 3. 加载映射文件：User.hbm.xml -->
+		<mapping resource="com/itheima/crm/bean/User.hbm.xml"/>
+	
+	</session-factory>
+
+</hibernate-configuration>
